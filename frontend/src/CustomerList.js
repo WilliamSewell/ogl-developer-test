@@ -4,12 +4,20 @@ function CustomerList() {
     const [customers, setCustomers] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
     const [newCustomer, setNewCustomer] = useState({
-        name: ''
+        name: '',
+        street: '',
+        city: '',
+        county: '',
+        postcode: ''
     });
     const [editingCustomer, setEditingCustomer] = useState(null);
     const [editForm, setEditForm] = useState({
         id: null,
-        name: ''
+        name: '',
+        street: '',
+        city: '',
+        county: '',
+        postcode: ''
     });
 
     useEffect(() => {
@@ -19,7 +27,7 @@ function CustomerList() {
             .catch(error => console.error('Error fetching customers:', error));
     }, []);
 
-    // Handlers for adding customers
+    // Handlers for ading customers
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewCustomer({
@@ -33,7 +41,11 @@ function CustomerList() {
         
         const customerToSave = {
             id: null,
-            name: newCustomer.name
+            name: newCustomer.name,
+            street: newCustomer.street,
+            city: newCustomer.city,
+            county: newCustomer.county,
+            postcode: newCustomer.postcode
         };
         
         fetch('/customer', {
@@ -46,7 +58,7 @@ function CustomerList() {
         .then(response => response.json())
         .then(data => {
             setCustomers([...customers, data]);
-            setNewCustomer({ name: '' });
+            setNewCustomer({ name: '', street: '', city: '', county: '', postcode: '' });
             setShowAddForm(false);
         })
         .catch(error => console.error('Error creating customer:', error));
@@ -57,7 +69,11 @@ function CustomerList() {
         setEditingCustomer(customer.id);
         setEditForm({
             id: customer.id,
-            name: customer.name
+            name: customer.name,
+            street: customer.street || '',
+            city: customer.city || '',
+            county: customer.county || '',
+            postcode: customer.postcode || ''
         });
     };
 
@@ -74,7 +90,11 @@ function CustomerList() {
         
         const customerToUpdate = {
             id: editForm.id,
-            name: editForm.name
+            name: editForm.name,
+            street: editForm.street,
+            city: editForm.city,
+            county: editForm.county,
+            postcode: editForm.postcode
         };
         
         fetch('/customer', {
@@ -88,26 +108,26 @@ function CustomerList() {
         .then(data => {
             setCustomers(customers.map(c => c.id === data.id ? data : c));
             setEditingCustomer(null);
-            setEditForm({ id: null, name: '' });
+            setEditForm({ id: null, name: '', street: '', city: '', county: '', postcode: '' });
         })
         .catch(error => console.error('Error updating customer:', error));
     };
 
     const handleCancelEdit = () => {
         setEditingCustomer(null);
-        setEditForm({ id: null, name: '' });
+        setEditForm({ id: null, name: '', street: '', city: '', county: '', postcode: '' });
     };
 
     return (
         <div>
             <h2>Customer Management</h2>
             
-            {/* Add Customer Button */}
+            {/* Added Customr Button */}
             <button onClick={() => setShowAddForm(!showAddForm)}>
                 {showAddForm ? 'Cancel' : 'Add New Customer'}
             </button>
             
-            {/* Add Customer Form */}
+            {/* Added Customer Form */}
             {showAddForm && (
                 <form onSubmit={handleSubmit} style={{ margin: '20px 0', padding: '10px', border: '1px solid #ccc' }}>
                     <h3>Add New Customer</h3>
@@ -119,6 +139,49 @@ function CustomerList() {
                             value={newCustomer.name}
                             onChange={handleInputChange}
                             required
+                            maxLength="255"
+                        />
+                    </div>
+                    <div style={{ marginBottom: '10px' }}>
+                        <label>Street: </label>
+                        <input
+                            type="text"
+                            name="street"
+                            value={newCustomer.street}
+                            onChange={handleInputChange}
+                            maxLength="255"
+                        />
+                    </div>
+                    <div style={{ marginBottom: '10px' }}>
+                        <label>City: </label>
+                        <input
+                            type="text"
+                            name="city"
+                            value={newCustomer.city}
+                            onChange={handleInputChange}
+                            maxLength="100"
+                        />
+                    </div>
+                    <div style={{ marginBottom: '10px' }}>
+                        <label>County: </label>
+                        <input
+                            type="text"
+                            name="county"
+                            value={newCustomer.county}
+                            onChange={handleInputChange}
+                            maxLength="100"
+                        />
+                    </div>
+                    <div style={{ marginBottom: '10px' }}>
+                        <label>Postcode: </label>
+                        <input
+                            type="text"
+                            name="postcode"
+                            value={newCustomer.postcode}
+                            onChange={handleInputChange}
+                            maxLength="10"
+                            pattern="[A-Za-z0-9\s-]*"
+                            title="Postcode can only contain letters, numbers, spaces, and hyphens"
                         />
                     </div>
                     <button type="submit">Save Customer</button>
@@ -131,6 +194,10 @@ function CustomerList() {
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>Street</th>
+                        <th>City</th>
+                        <th>County</th>
+                        <th>Postcode</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -148,6 +215,45 @@ function CustomerList() {
                                             value={editForm.name}
                                             onChange={handleEditChange}
                                             required
+                                            maxLength="255"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="street"
+                                            value={editForm.street}
+                                            onChange={handleEditChange}
+                                            maxLength="255"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="city"
+                                            value={editForm.city}
+                                            onChange={handleEditChange}
+                                            maxLength="100"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="county"
+                                            value={editForm.county}
+                                            onChange={handleEditChange}
+                                            maxLength="100"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="postcode"
+                                            value={editForm.postcode}
+                                            onChange={handleEditChange}
+                                            maxLength="10"
+                                            pattern="[A-Za-z0-9\s-]*"
+                                            title="Postcode can only contain letters, numbers, spaces, and hyphens"
                                         />
                                     </td>
                                     <td>
@@ -161,6 +267,10 @@ function CustomerList() {
                                 <>
                                     <td>{customer.id}</td>
                                     <td>{customer.name}</td>
+                                    <td>{customer.street || '-'}</td>
+                                    <td>{customer.city || '-'}</td>
+                                    <td>{customer.county || '-'}</td>
+                                    <td>{customer.postcode || '-'}</td>
                                     <td>
                                         <button onClick={() => handleEdit(customer)}>Edit</button>
                                     </td>
