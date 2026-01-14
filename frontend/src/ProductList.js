@@ -4,8 +4,7 @@ function ProductList() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        // Fetching from the backend URL specified in Task 1 [cite: 32]
-        fetch('http://localhost:8080/product')
+        fetch('/product')
             .then(response => response.json())
             .then(data => setProducts(data))
             .catch(error => console.error('Error fetching products:', error));
@@ -19,6 +18,7 @@ function ProductList() {
                     <tr>
                         <th>ID</th>
                         <th>SKU</th>
+                        <th>Description</th>
                         <th>Price</th>
                     </tr>
                 </thead>
@@ -27,6 +27,7 @@ function ProductList() {
                         <tr key={product.id}>
                             <td>{product.id}</td>
                             <td>{product.sku}</td>
+                            <td>{product.description}</td> 
                             <td>{product.price}</td>
                         </tr>
                     ))}

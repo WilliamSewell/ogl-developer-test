@@ -18,6 +18,8 @@ public class Product {
   @NotNull
   private BigDecimal price;
 
+  private String description;
+
   public long getId() {
     return id;
   }
@@ -40,5 +42,13 @@ public class Product {
 
   public void setPrice(BigDecimal price) {
     this.price = price;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }
