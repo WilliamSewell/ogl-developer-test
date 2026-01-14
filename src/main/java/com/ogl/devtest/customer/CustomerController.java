@@ -27,6 +27,7 @@ public class CustomerController {
         return customer.isPresent() ? ResponseEntity.of(customer) : ResponseEntity.notFound().build();
     }
 
+    // The warning here might be saying that customer could come in as null. Look into this. 
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Customer> save(@RequestBody Customer customer) {
         return ResponseEntity.ok(customerRepository.save(customer));

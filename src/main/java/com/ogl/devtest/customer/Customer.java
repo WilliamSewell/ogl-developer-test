@@ -11,16 +11,16 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // Name must not be empty. every customer needs a name for identification
+    // Name must not be empty. Every customer needs a name for identification
     @NotEmpty(message = "Customer name is required")
     @Size(max = 255, message = "Name must not exceed 255 characters")
     private String name;
 
-    // Street is optional but limited to 255 chars to match database schema    
+    // Optional but limited to 255 chars to match database schema    
     @Size(max = 255, message = "Street must not exceed 255 characters")
     private String street;
 
-    // City is optional but limited to 100 chars for reasonable city name length. Maybe some Indonesian cities...
+    // Limited to 100 chars for reasonable city name length. Maybe some Indonesian cities...
     @Size(max = 100, message = "City must not exceed 100 characters")
     private String city;
 
@@ -28,7 +28,7 @@ public class Customer {
     @Size(max = 100, message = "County must not exceed 100 characters")
     private String county;
 
-    // Postcode validation:
+    // Postcode validation (possibly overkill):
     // - Optional (some international addresses may not have standard postcodes)
     // - Max 10 chars to accommodate various international formats (UK: 8, US: 10 with dash)
     // - Pattern allows alphanumeric with spaces and hyphens for flexibility across formats
@@ -38,7 +38,7 @@ public class Customer {
              message = "Postcode can only contain letters, numbers, spaces, and hyphens")
     private String postcode;
 
-    // Getters and Setters
+    // Get and Set
     public long getId() {
         return id;
     }

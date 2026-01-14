@@ -64,7 +64,7 @@ function CustomerList() {
         .catch(error => console.error('Error creating customer:', error));
     };
 
-    // Handlers for editing customers
+    // Handlers for editing customers. Came across a difference here compared to c#  where you would use ?? instead of ||
     const handleEdit = (customer) => {
         setEditingCustomer(customer.id);
         setEditForm({
@@ -122,7 +122,7 @@ function CustomerList() {
         <div>
             <h2>Customer Management</h2>
             
-            {/* Added Customr Button */}
+            {/* Added Customr Button, show the form to add when clicked */}
             <button onClick={() => setShowAddForm(!showAddForm)}>
                 {showAddForm ? 'Cancel' : 'Add New Customer'}
             </button>
@@ -263,7 +263,7 @@ function CustomerList() {
                                     </td>
                                 </>
                             ) : (
-                                // Normal mode
+                                // Normal mode. Display '-' if it comes in as a blank string
                                 <>
                                     <td>{customer.id}</td>
                                     <td>{customer.name}</td>

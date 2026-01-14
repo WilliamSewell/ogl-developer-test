@@ -11,6 +11,7 @@ public class Product {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
+  // SKU is not nullable in the schema. Make it "NotEmpty" so it needs a value
   @NotEmpty
   @Column(unique = true)
   private String sku;

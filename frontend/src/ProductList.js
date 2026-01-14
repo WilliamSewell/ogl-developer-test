@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function ProductList() {
+    // The products retrieved from the API
     const [products, setProducts] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
     const [newProduct, setNewProduct] = useState({
@@ -16,6 +17,7 @@ function ProductList() {
         price: ''
     });
 
+    // Feteches the product data from the API
     useEffect(() => {
         fetch('/product')
             .then(response => response.json())
@@ -233,4 +235,5 @@ function ProductList() {
     );
 }
 
+// Make available to App.js
 export default ProductList;
