@@ -8,6 +8,13 @@ function ProductList() {
         description: '',
         price: ''
     });
+    const [editingProduct, setEditingProduct] = useState(null);
+    const [editForm, setEditForm] = useState({
+        id: null,
+        sku: '',
+        description: '',
+        price: ''
+    });
 
     useEffect(() => {
         fetch('/product')
@@ -16,6 +23,7 @@ function ProductList() {
             .catch(error => console.error('Error fetching products:', error));
     }, []);
 
+    // Handlers for adding products
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewProduct({
@@ -27,15 +35,13 @@ function ProductList() {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Convert price to number and prepare the product object
         const productToSave = {
-            id: null,  // Let database auto-assign
+            id: null,
             sku: newProduct.sku,
             description: newProduct.description,
             price: parseFloat(newProduct.price)
         };
         
-        // Make POST request
         fetch('/product', {
             method: 'POST',
             headers: {
@@ -45,13 +51,61 @@ function ProductList() {
         })
         .then(response => response.json())
         .then(data => {
-            // Add new product to the list
             setProducts([...products, data]);
-            // Reset form
             setNewProduct({ sku: '', description: '', price: '' });
             setShowAddForm(false);
         })
         .catch(error => console.error('Error creating product:', error));
+    };
+
+    // Handlers for editing products
+    const handleEdit = (product) => {
+        setEditingProduct(product.id);
+        setEditForm({
+            id: product.id,
+            sku: product.sku,
+            description: product.description,
+            price: product.price
+        });
+    };
+
+    const handleEditChange = (e) => {
+        const { name, value } = e.target;
+        setEditForm({
+            ...editForm,
+            [name]: value
+        });
+    };
+
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        
+        const productToUpdate = {
+            id: editForm.id,
+            sku: editForm.sku,
+            description: editForm.description,
+            price: parseFloat(editForm.price)
+        };
+        
+        fetch('/product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(productToUpdate)
+        })
+        .then(response => response.json())
+        .then(data => {
+            setProducts(products.map(p => p.id === data.id ? data : p));
+            setEditingProduct(null);
+            setEditForm({ id: null, sku: '', description: '', price: '' });
+        })
+        .catch(error => console.error('Error updating product:', error));
+    };
+
+    const handleCancelEdit = () => {
+        setEditingProduct(null);
+        setEditForm({ id: null, sku: '', description: '', price: '' });
     };
 
     return (
@@ -112,15 +166,65 @@ function ProductList() {
                         <th>SKU</th>
                         <th>Description</th>
                         <th>Price</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {products.map(product => (
                         <tr key={product.id}>
-                            <td>{product.id}</td>
-                            <td>{product.sku}</td>
-                            <td>{product.description}</td>
-                            <td>£{product.price}</td>
+                            {editingProduct === product.id ? (
+                                // Editing mode - show form inputs
+                                <>
+                                    <td>{product.id}</td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="sku"
+                                            value={editForm.sku}
+                                            onChange={handleEditChange}
+                                            required
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            name="description"
+                                            value={editForm.description}
+                                            onChange={handleEditChange}
+                                            required
+                                            maxLength="255"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="number"
+                                            name="price"
+                                            value={editForm.price}
+                                            onChange={handleEditChange}
+                                            required
+                                            step="0.01"
+                                            min="0"
+                                            style={{ width: '80px' }}
+                                        />
+                                    </td>
+                                    <td>
+                                        <button onClick={handleUpdate}>Save</button>
+                                        {' '}
+                                        <button onClick={handleCancelEdit}>Cancel</button>
+                                    </td>
+                                </>
+                            ) : (
+                                // Normal mode - show product data
+                                <>
+                                    <td>{product.id}</td>
+                                    <td>{product.sku}</td>
+                                    <td>{product.description}</td>
+                                    <td>£{product.price}</td>
+                                    <td>
+                                        <button onClick={() => handleEdit(product)}>Edit</button>
+                                    </td>
+                                </>
+                            )}
                         </tr>
                     ))}
                 </tbody>
