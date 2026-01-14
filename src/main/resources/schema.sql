@@ -4,8 +4,7 @@ CREATE TABLE customer (
     street   VARCHAR(255),
     city     VARCHAR(100),
     county   VARCHAR(100),
-    postcode VARCHAR(10),
-    PRIMARY KEY (id)
+    postcode VARCHAR(10)    
 );
 
 CREATE TABLE Product (
