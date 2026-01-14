@@ -112,12 +112,12 @@ function ProductList() {
         <div>
             <h2>Product Inventory</h2>
             
-            {/* Add Product Button */}
+            {/* Added Product Button */}
             <button onClick={() => setShowAddForm(!showAddForm)}>
                 {showAddForm ? 'Cancel' : 'Add New Product'}
             </button>
             
-            {/* Add Product Form */}
+            {/* Added Product Form */}
             {showAddForm && (
                 <form onSubmit={handleSubmit} style={{ margin: '20px 0', padding: '10px', border: '1px solid #ccc' }}>
                     <h3>Add New Product</h3>
