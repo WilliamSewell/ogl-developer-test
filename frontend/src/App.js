@@ -14,30 +14,19 @@ function App() {
         <nav style={{ marginTop: '20px' }}>
           <button 
             onClick={() => setActiveView('products')}
-            style={{ 
-              marginRight: '10px', 
-              padding: '10px 20px',
-              backgroundColor: activeView === 'products' ? '#61dafb' : '#fff'
-            }}
+            className={`universal-button ${activeView === 'products' ? 'active' : ''}`}
           >
             Products
           </button>
           <button 
             onClick={() => setActiveView('customers')}
-            style={{ 
-              marginRight: '10px',
-              padding: '10px 20px',
-              backgroundColor: activeView === 'customers' ? '#61dafb' : '#fff'
-            }}
+            className={`universal-button ${activeView === 'customers' ? 'active' : ''}`}
           >
             Customers
           </button>
           <button 
             onClick={() => setActiveView('map')}
-            style={{ 
-              padding: '10px 20px',
-              backgroundColor: activeView === 'map' ? '#61dafb' : '#fff'
-            }}
+            className={`universal-button ${activeView === 'map' ? 'active' : ''}`}
           >
             Map
           </button>

@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-// Fix for default marker icon issue in React-Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
@@ -27,7 +26,7 @@ function CustomerMap() {
       .catch(error => console.error('Error fetching customers:', error));
   }, []);
 
-  // Convert postcodes to coordinates using a geocoding service
+  // Convert postcodes to coordinates using a geocoding service. This might need additional validation as you can enter 'test' and it will plot them as somewhere in Texas
   const geocodeCustomers = async (customers) => {
     const locations = [];
     
@@ -67,12 +66,14 @@ function CustomerMap() {
 
   // Default center (UK)
   const defaultCenter = [54.5, -2.0];
+  // Zoomed out quite far as there are American zips in the sample data
   const defaultZoom = 6;
 
+  // Maybe add a loading bar here if it gets more data intensive. Already quite slow on three codes. 
   if (loading) {
     return (
       <div>
-        <h2>Customer Map</h2>
+        <h2>Customer Map</h2>        
         <p>Loading map and geocoding customer postcodes... This may take a few moments.</p>
       </div>
     );

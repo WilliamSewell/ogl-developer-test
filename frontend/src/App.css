@@ -28,6 +28,45 @@
   color: #61dafb;
 }
 
+/* Universal Buttons */
+.universal-button {
+  padding: 12px 24px;
+  margin: 0 8px;
+  font-size: 16px;
+  font-weight: 500;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.universal-button:hover {
+  background-color: rgba(97, 218, 251, 0.2);
+  border-color: #61dafb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.3);
+}
+
+.universal-button.active {
+  background-color: #61dafb;
+  color: #282c34;
+  border-color: #61dafb;
+  box-shadow: 0 4px 16px rgba(97, 218, 251, 0.4);
+}
+
+.universal-button:active {
+  transform: translateY(0);
+}
+
+.universal-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(97, 218, 251, 0.5);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
