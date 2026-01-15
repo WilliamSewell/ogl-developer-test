@@ -34,10 +34,10 @@
   margin: 0 8px;
   font-size: 16px;
   font-weight: 500;
-  border: 2px solid transparent;
+  border: 2px solid #61dafb;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  background-color: #61dafb;
+  color: #282c34;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
@@ -45,17 +45,17 @@
 }
 
 .universal-button:hover {
-  background-color: rgba(97, 218, 251, 0.2);
-  border-color: #61dafb;
+  background-color: #4db8d4;
+  border-color: #4db8d4;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.3);
+  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.5);
 }
 
 .universal-button.active {
-  background-color: #61dafb;
-  color: #282c34;
-  border-color: #61dafb;
-  box-shadow: 0 4px 16px rgba(97, 218, 251, 0.4);
+  background-color: #3a9fb8;
+  color: #ffffff;
+  border-color: #3a9fb8;
+  box-shadow: 0 4px 16px rgba(97, 218, 251, 0.6);
 }
 
 .universal-button:active {

@@ -122,12 +122,11 @@ function CustomerList() {
         <div>
             <h2>Customer Management</h2>
             
-            {/* Added Customr Button, show the form to add when clicked */}
-            <button onClick={() => setShowAddForm(!showAddForm)}>
+            {/* Changed to new universal button */}
+            <button className="universal-button" onClick={() => setShowAddForm(!showAddForm)}>
                 {showAddForm ? 'Cancel' : 'Add New Customer'}
             </button>
             
-            {/* Added Customer Form */}
             {showAddForm && (
                 <form onSubmit={handleSubmit} style={{ margin: '20px 0', padding: '10px', border: '1px solid #ccc' }}>
                     <h3>Add New Customer</h3>
@@ -184,7 +183,7 @@ function CustomerList() {
                             title="Postcode can only contain letters, numbers, spaces, and hyphens"
                         />
                     </div>
-                    <button type="submit">Save Customer</button>
+                    <button className="universal-button" type="submit">Save Customer</button>
                 </form>
             )}
             
@@ -257,9 +256,9 @@ function CustomerList() {
                                         />
                                     </td>
                                     <td>
-                                        <button onClick={handleUpdate}>Save</button>
+                                        <button className="universal-button" onClick={handleUpdate}>Save</button>
                                         {' '}
-                                        <button onClick={handleCancelEdit}>Cancel</button>
+                                        <button className="universal-button" onClick={handleCancelEdit}>Cancel</button>
                                     </td>
                                 </>
                             ) : (
@@ -272,7 +271,7 @@ function CustomerList() {
                                     <td>{customer.county || '-'}</td>
                                     <td>{customer.postcode || '-'}</td>
                                     <td>
-                                        <button onClick={() => handleEdit(customer)}>Edit</button>
+                                        <button className="universal-button" onClick={() => handleEdit(customer)}>Edit</button>
                                     </td>
                                 </>
                             )}

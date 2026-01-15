@@ -114,12 +114,11 @@ function ProductList() {
         <div>
             <h2>Product Inventory</h2>
             
-            {/* Added Product Button */}
-            <button onClick={() => setShowAddForm(!showAddForm)}>
+            {/* Changed to the new universal button*/}
+            <button className="universal-button" onClick={() => setShowAddForm(!showAddForm)}>
                 {showAddForm ? 'Cancel' : 'Add New Product'}
-            </button>
+            </button>            
             
-            {/* Added Product Form */}
             {showAddForm && (
                 <form onSubmit={handleSubmit} style={{ margin: '20px 0', padding: '10px', border: '1px solid #ccc' }}>
                     <h3>Add New Product</h3>
@@ -156,7 +155,7 @@ function ProductList() {
                             min="0"
                         />
                     </div>
-                    <button type="submit">Save Product</button>
+                    <button className="universal-button" type="submit">Save Product</button>
                 </form>
             )}
             
@@ -175,7 +174,7 @@ function ProductList() {
                     {products.map(product => (
                         <tr key={product.id}>
                             {editingProduct === product.id ? (
-                                // Editing mode - show form inputs
+                                // Editing mode, show form inputs
                                 <>
                                     <td>{product.id}</td>
                                     <td>
@@ -210,20 +209,20 @@ function ProductList() {
                                         />
                                     </td>
                                     <td>
-                                        <button onClick={handleUpdate}>Save</button>
+                                        <button className="universal-button" onClick={handleUpdate}>Save</button>
                                         {' '}
-                                        <button onClick={handleCancelEdit}>Cancel</button>
+                                        <button className="universal-button" onClick={handleCancelEdit}>Cancel</button>
                                     </td>
                                 </>
                             ) : (
-                                // Normal mode - show product data
+                                // Normal mode, show product data
                                 <>
                                     <td>{product.id}</td>
                                     <td>{product.sku}</td>
                                     <td>{product.description}</td>
                                     <td>£{product.price}</td>
                                     <td>
-                                        <button onClick={() => handleEdit(product)}>Edit</button>
+                                        <button className="universal-button" onClick={() => handleEdit(product)}>Edit</button>
                                     </td>
                                 </>
                             )}
