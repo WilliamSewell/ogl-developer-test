@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState } from 'react';
 import ProductList from './ProductList';
 import CustomerList from './CustomerList';
+import CustomerMap from './CustomerMap';
 
 function App() {
   const [activeView, setActiveView] = useState('products');
@@ -24,17 +25,28 @@ function App() {
           <button 
             onClick={() => setActiveView('customers')}
             style={{ 
+              marginRight: '10px',
               padding: '10px 20px',
               backgroundColor: activeView === 'customers' ? '#61dafb' : '#fff'
             }}
           >
             Customers
           </button>
+          <button 
+            onClick={() => setActiveView('map')}
+            style={{ 
+              padding: '10px 20px',
+              backgroundColor: activeView === 'map' ? '#61dafb' : '#fff'
+            }}
+          >
+            Map
+          </button>
         </nav>
       </header>
       <main style={{ padding: '20px' }}>
         {activeView === 'products' && <ProductList />}
         {activeView === 'customers' && <CustomerList />}
+        {activeView === 'map' && <CustomerMap />}
       </main>
     </div>
   );
